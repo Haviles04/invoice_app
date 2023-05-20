@@ -1,0 +1,216 @@
+.container {
+  max-width: 636px;
+  height: 100%;
+  position: absolute;
+  left: -20px;
+  background-color: white;
+  border-radius: 0px 20px 20px 0px;
+  z-index: 3;
+  padding-left: 76px;
+  padding-right: 56px;
+  padding-top: 59px;
+  animation: slideIn 0.25s ease-in-out;
+  overflow: auto;
+}
+
+.dark {
+  background-color: var(--color12);
+}
+
+.container::-webkit-scrollbar {
+  display: none;
+}
+
+.container h2 {
+  margin-bottom: 49px;
+}
+
+.invoiceForm h4 {
+  margin-top: 24px;
+  margin-bottom: 24px;
+  color: var(--color1);
+}
+
+.invoiceForm label {
+  color: var(--color7);
+  display: inline-block;
+  cursor: pointer;
+}
+
+.dark label {
+  color: #ffffff;
+}
+
+.invoiceForm input,
+.invoiceForm select {
+  padding-left: 20px;
+  margin-top: 9px;
+  margin-bottom: 25px;
+  height: 48px;
+  border-radius: 5px;
+  border: 1px solid var(--color5);
+}
+
+.dark input,
+.dark select {
+  background-color: var(--color3);
+  border: none;
+  color: #ffffff;
+}
+
+.invoiceForm input:hover {
+  border: 1px solid var(--color1);
+  cursor: pointer;
+}
+
+.invoiceForm input:active {
+  border: 1px solid var(--color1);
+  cursor: pointer;
+  outline: none;
+}
+
+.largeInput {
+  display: block;
+  min-width: 504px;
+}
+
+.mediumInputContainer {
+  display: flex;
+  min-width: 504px;
+  justify-content: space-between;
+}
+
+.mediumInput {
+  width: 152px;
+  display: inline-block;
+}
+
+.dateTermsContainer {
+  display: flex;
+  min-width: 504px;
+  gap: 25px;
+}
+
+.issueDate {
+  width: 240px;
+}
+
+.paymentTerms {
+  width: 240px;
+  height: 48px;
+  padding-left: 20px;
+  border-radius: 5px;
+  border: 1px solid var(--color5);
+}
+
+.paymentTerms:hover {
+  border: 1px solid var(--color1);
+  cursor: pointer;
+}
+
+.paymentTerms option {
+  border-bottom: 1px solid gray;
+}
+
+.itemHeader {
+  font-size: 18px;
+  line-height: 32px;
+  letter-spacing: -0.38px;
+  color: #777f98 !important;
+}
+
+.itemName {
+  width: 214px;
+}
+
+.itemQty {
+  width: 48px;
+}
+
+.itemPrice {
+  width: 100px;
+}
+
+.itemTotal {
+  margin-top: 25px;
+  background-color: white;
+  color: #777f98;
+  padding-left: 0 !important;
+  border: none !important;
+  width: 70px;
+}
+
+.itemName,
+.itemPrice,
+.itemQty {
+  margin-right: 16px;
+}
+
+.deleteBtn {
+  border: none;
+  background-color: transparent;
+}
+
+.addItemBtn {
+  width: 504px;
+  height: 48px;
+  border-radius: 10px;
+  border: none;
+  background-color: #f9fafe;
+  color: var(--color7);
+}
+
+.dark .addItemBtn {
+  background-color: var(--color4);
+  color: #ffffff;
+}
+
+.buttonContainer {
+  width: 504px;
+  display: flex;
+  margin-top: 39px;
+  margin-bottom: 32px;
+  justify-content: space-between;
+}
+
+.discardBtn,
+.saveBtn,
+.draftBtn {
+  height: 48px;
+  border-radius: 25px;
+  border: none;
+}
+
+.draftBtn,
+.saveBtn {
+  width: 128px;
+}
+
+.draftBtn {
+  margin-right: 8px;
+  background-color: #373b53;
+  color: #979797;
+}
+
+.saveBtn {
+  background-color: var(--color1);
+  color: #eee;
+}
+
+.discardBtn {
+  width: 96px;
+  height: 48px;
+  border-radius: 25px;
+  background-color: #f9fafe;
+  color: var(--color7);
+  border: none;
+}
+
+@keyframes slideIn {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 0;
+  }
+}

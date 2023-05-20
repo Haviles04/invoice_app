@@ -1,0 +1,120 @@
+.container {
+  position: relative;
+  margin: 0 auto;
+  width: 730px;
+  margin-top: 77px;
+  margin-bottom: 140px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.container p {
+  color: #888eb0;
+}
+
+.buttonSide {
+  display: flex;
+  align-items: center;
+}
+
+.dropDownCheck {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-right: 40px;
+}
+
+.optionsSelect {
+  visibility: hidden;
+}
+
+.optionsSelect + label {
+  cursor: pointer;
+}
+
+.optionsSelect:checked ~ .options {
+  visibility: visible;
+}
+
+.optionsSelect + label::after {
+  content: url("../assets/icon-arrow-down.svg");
+  margin-left: 10px;
+}
+
+.optionsSelect:checked + label::after {
+  display: inline-block;
+  rotate: 180deg;
+}
+
+.options {
+  visibility: hidden;
+  width: 192px;
+  position: absolute;
+  top: 50px;
+  left: -40px;
+  padding: 15px;
+  font-weight: bold;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px 3px rgba(0, 0, 0, 0.123);
+  background-color: white;
+}
+
+.dark .options {
+  background-color: var(--color4);
+}
+
+.options input {
+  accent-color: #7c5dfa;
+  margin-top: 7px;
+  margin-right: 10px;
+  width: 16px;
+  height: 16px;
+}
+
+.options input::after {
+  content: " ";
+  position: absolute;
+  left: 15px;
+  width: 17px;
+  height: 17px;
+  border-radius: 0px;
+  background-color: #dfe3fa;
+}
+
+.dark .options input::after {
+  background-color: var(--color3);
+}
+
+.options input:hover::after {
+  outline: 1px solid #7c5dfa;
+  height: 16px;
+  width: 16px;
+}
+
+.options input:checked::after {
+  visibility: hidden;
+}
+
+.button {
+  width: 150px;
+  height: 48px;
+  border-radius: 30px;
+  border: none;
+  background-color: #7c5dfa;
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 14px 7px 7px;
+  cursor: pointer;
+}
+
+.button img {
+  width: 35px;
+  height: auto;
+  background-color: white;
+  border-radius: 50%;
+  padding: 12px 11px 11px 12px;
+}

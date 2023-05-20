@@ -1,0 +1,27 @@
+.container {
+  width: 241px;
+  text-align: center;
+  height: 342;
+  margin: 0 auto;
+}
+
+.container img {
+  height: 200px;
+  margin-bottom: 40px;
+}
+
+.container h2 {
+  color: #0c0e16;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 23px;
+}
+
+.container p {
+  text-align: center;
+  color: #888eb0;
+}
+
+.dark h2 p {
+  color: white;
+}
