@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Image from "next/image";
 import styles from "@/styles/InvoiceForm.module.css";
 import DeleteIcon from "@/assets/icon-delete.svg";
-import { nanoid } from "nanoid";
 import { useTheme } from "@/context/ThemeContextProvider";
 import { useInvoices } from "@/context/InvoiceContextProvider";
 import { initalInputs } from "@/data/initialInputs";
