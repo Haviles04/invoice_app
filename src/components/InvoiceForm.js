@@ -32,7 +32,7 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
   };
 
   const handleItemChange = (e, i) => {
-    const name = e.target.name.toString();
+    const name = e.target.name;
     const value = e.target.value;
     let data = { ...inputs };
     if (name === "name") {

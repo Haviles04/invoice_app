@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 
 export const initalInputs = {
-  id: nanoid(6),
+  id: nanoid(6).toUpperCase(),
   createdAt: 0,
   paymentDue: 0,
   description: "",
