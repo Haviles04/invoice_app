@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import Image from "next/image";
 import styles from "@/styles/InvoiceForm.module.css";
 import DeleteIcon from "@/assets/icon-delete.svg";
+import { nanoid } from "nanoid";
 import { useTheme } from "@/context/ThemeContextProvider";
+import { useInvoices } from "@/context/InvoiceContextProvider";
+import { initalInputs } from "@/data/initialInputs";
 
 function InvoiceForm({ setInvoiceFormIsOpen }) {
   const { isDarkMode } = useTheme();
+  const { addInvoice } = useInvoices();
   const theme = isDarkMode ? styles.dark : styles.light;
-  const [inputs, setInputs] = useState({ items: [{}] });
+  const [inputs, setInputs] = useState(initalInputs);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -15,21 +19,42 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
+  const handleAddressChange = (e, person) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    const data = { ...inputs };
+    if (person === "sender") {
+      data.senderAddress[name] = value;
+    } else {
+      data.clientAddress[name] = value;
+    }
+    setInputs(data);
+  };
+
   const handleItemChange = (e, i) => {
     const name = e.target.name.toString();
     const value = e.target.value;
     let data = { ...inputs };
-    data.items[i][name] = value;
-    data.items[i].itemTotal = (
-      data.items[i].itemQty * data.items[i].itemPrice
-    ).toFixed(2);
+    if (name === "name") {
+      data.items[i][name] = value;
+    } else {
+      data.items[i][name] = parseInt(value);
+    }
+    data.items[i].total = parseInt(
+      (data.items[i].quantity * data.items[i].price).toFixed(2)
+    );
     setInputs(data);
   };
 
   const handleAddItem = (e) => {
     e.preventDefault();
     const data = { ...inputs };
-    data.items.push({});
+    data.items.push({
+      name: "",
+      quantity: 0,
+      price: 0,
+      total: 0,
+    });
     setInputs(data);
   };
 
@@ -44,6 +69,20 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
   const handleDiscard = (e) => {
     e.preventDefault();
     setInvoiceFormIsOpen(false);
+  };
+
+  const handleSubmit = (e, status) => {
+    e.preventDefault();
+    const total = inputs.items.reduce((prev, { total }) => prev + total, 0);
+    let dueDate = new Date(inputs.createdAt);
+    dueDate.setDate(dueDate.getDate() + parseInt(inputs.paymentTerms));
+    let dateFormatted = dueDate.toISOString().slice(0, 10);
+    addInvoice({
+      ...inputs,
+      total: total,
+      status: status,
+      paymentDue: dateFormatted,
+    });
   };
 
   return (
@@ -62,10 +101,10 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
           <input
             type="text"
             id="fromAddress"
-            name="fromAddress"
+            name="street"
             className={`${styles.largeInput} heading-S`}
-            value={inputs.fromAddress || ""}
-            onChange={handleChange}
+            value={inputs.senderAddress.street}
+            onChange={(e) => handleAddressChange(e, "sender")}
           />
         </label>
         <div className={styles.mediumInputContainer}>
@@ -75,10 +114,10 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
             <input
               type="text"
               id="fromCity"
-              name="fromCity"
+              name="city"
               className={`${styles.mediumInput} heading-S`}
-              value={inputs.fromCity || ""}
-              onChange={handleChange}
+              value={inputs.senderAddress.city}
+              onChange={(e) => handleAddressChange(e, "sender")}
             />
           </label>
           <label htmlFor="fromPostCode">
@@ -87,10 +126,10 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
             <input
               type="text"
               id="fromPostcode"
-              name="fromPostcode"
+              name="postCode"
               className={`${styles.mediumInput} heading-S`}
-              value={inputs.fromPostcode || ""}
-              onChange={handleChange}
+              value={inputs.senderAddress.postCode}
+              onChange={(e) => handleAddressChange(e, "sender")}
             />
           </label>
           <label htmlFor="fromCountry">
@@ -99,10 +138,10 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
             <input
               type="text"
               id="fromCountry"
-              name="fromCountry"
+              name="country"
               className={`${styles.mediumInput} heading-S`}
-              value={inputs.fromCountry || ""}
-              onChange={handleChange}
+              value={inputs.senderAddress.country}
+              onChange={(e) => handleAddressChange(e, "sender")}
             />
           </label>
         </div>
@@ -120,7 +159,7 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
             id="clientName"
             name="clientName"
             className={`${styles.largeInput} heading-S`}
-            value={inputs.clientName || ""}
+            value={inputs.clientName}
             onChange={handleChange}
           />
         </label>
@@ -132,7 +171,7 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
             id="clientEmail"
             name="clientEmail"
             className={`${styles.largeInput} heading-S`}
-            value={inputs.clientEmail || ""}
+            value={inputs.clientEmail}
             onChange={handleChange}
           />
         </label>
@@ -142,10 +181,10 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
           <input
             type="text"
             id="toAddress"
-            name="toAddress"
+            name="street"
             className={`${styles.largeInput} heading-S`}
-            value={inputs.toAddress || ""}
-            onChange={handleChange}
+            value={inputs.clientAddress.street}
+            onChange={(e) => handleAddressChange(e, "client")}
           />
         </label>
         <div className={styles.mediumInputContainer}>
@@ -155,10 +194,10 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
             <input
               type="text"
               id="toCity"
-              name="toCity"
+              name="city"
               className={`${styles.mediumInput} heading-S`}
-              value={inputs.toCity || ""}
-              onChange={handleChange}
+              value={inputs.clientAddress.city}
+              onChange={(e) => handleAddressChange(e, "client")}
             />
           </label>
           <label htmlFor="toPostCode">
@@ -167,10 +206,10 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
             <input
               type="text"
               id="toPostcode"
-              name="toPostcode"
+              name="postCode"
               className={`${styles.mediumInput} heading-S`}
-              value={inputs.toPostcode || ""}
-              onChange={handleChange}
+              value={inputs.clientAddress.postCode}
+              onChange={(e) => handleAddressChange(e, "client")}
             />
           </label>
           <label htmlFor="toCountry">
@@ -179,10 +218,10 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
             <input
               type="text"
               id="toCountry"
-              name="toCountry"
+              name="country"
               className={`${styles.mediumInput} heading-S`}
-              value={inputs.toCountry || ""}
-              onChange={handleChange}
+              value={inputs.clientAddress.country}
+              onChange={(e) => handleAddressChange(e, "client")}
             />
           </label>
         </div>
@@ -197,9 +236,9 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
             <input
               type="date"
               id="issueDate"
-              name="issueDate"
+              name="createdAt"
               className={`${styles.issueDate} heading-S-variant`}
-              value={inputs.issueDate || ""}
+              value={inputs.issueDate}
               onChange={handleChange}
             />
           </label>
@@ -209,7 +248,7 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
               id="paymentTerms"
               name="paymentTerms"
               className={`${styles.paymentTerms} heading-S-variant`}
-              value={inputs.paymentTerms || ""}
+              value={inputs.paymentTerms}
               onChange={handleChange}
             >
               <option value="1" className="heading-S-variant">
@@ -232,9 +271,9 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
           <input
             type="text"
             id="projectDescription"
-            name="projectDescription"
+            name="description"
             className={`${styles.largeInput} heading-S`}
-            value={inputs.projectDescription || ""}
+            value={inputs.projectDescription}
             onChange={handleChange}
           />
         </label>
@@ -247,9 +286,9 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
               <input
                 type="text"
                 id="itemName"
-                name="itemName"
+                name="name"
                 className={`${styles.itemName} heading-S`}
-                value={inputs.items[i].itemName || ""}
+                value={inputs.items[i].name}
                 onChange={(e) => handleItemChange(e, i)}
               />
             </label>
@@ -259,9 +298,9 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
               <input
                 type="number"
                 id="itemQty"
-                name="itemQty"
+                name="quantity"
                 className={`${styles.itemQty} heading-S`}
-                value={inputs.items[i].itemQty || 0}
+                value={inputs.items[i].quantity || 0}
                 onChange={(e) => handleItemChange(e, i)}
               />
             </label>
@@ -271,9 +310,9 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
               <input
                 type="number"
                 id="itemPrice"
-                name="itemPrice"
+                name="price"
                 className={`${styles.itemPrice} heading-S`}
-                value={inputs.items[i].itemPrice || 0}
+                value={inputs.items[i].price || 0}
                 onChange={(e) => handleItemChange(e, i)}
               />
             </label>
@@ -283,10 +322,10 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
               <input
                 type="number"
                 id="itemTotal"
-                name="itemTotal"
+                name="total"
                 className={`${styles.itemTotal} heading-S`}
                 disabled
-                value={inputs.items[i].itemTotal || 0.0}
+                value={inputs.items[i].total || 0.0}
               />
             </label>
             <button
@@ -298,7 +337,7 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
           </div>
         ))}
         <button
-          class={`${styles.addItemBtn} heading-S-variant`}
+          className={`${styles.addItemBtn} heading-S-variant`}
           onClick={handleAddItem}
         >
           + Add New Item
@@ -313,10 +352,16 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
             Discard
           </button>
           <div>
-            <button className={`${styles.draftBtn} heading-S-variant`}>
+            <button
+              onClick={(e) => handleSubmit(e, "draft")}
+              className={`${styles.draftBtn} heading-S-variant`}
+            >
               Save as Draft
             </button>
-            <button className={`${styles.saveBtn} heading-S-variant`}>
+            <button
+              onClick={(e) => handleSubmit(e, "pending")}
+              className={`${styles.saveBtn} heading-S-variant`}
+            >
               Save & Send
             </button>
           </div>

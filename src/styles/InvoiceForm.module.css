@@ -9,7 +9,7 @@
   padding-left: 76px;
   padding-right: 56px;
   padding-top: 59px;
-  animation: slideIn 0.25s ease-in-out;
+  animation: slideIn 0.35s ease-in-out;
   overflow: auto;
 }
 
@@ -135,9 +135,13 @@
   margin-top: 25px;
   background-color: white;
   color: #777f98;
-  padding-left: 0 !important;
+  padding-left: 0px !important;
   border: none !important;
   width: 70px;
+}
+
+.dark .itemTotal {
+  background-color: var(--color12);
 }
 
 .itemName,
@@ -147,6 +151,7 @@
 }
 
 .deleteBtn {
+  padding-left: 10px;
   border: none;
   background-color: transparent;
 }
