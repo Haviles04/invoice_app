@@ -4,19 +4,23 @@ import styles from "@/styles/InvoiceForm.module.css";
 import DeleteIcon from "@/assets/icon-delete.svg";
 import { useTheme } from "@/context/ThemeContextProvider";
 import { useInvoices } from "@/context/InvoiceContextProvider";
-import { initalInputs } from "@/data/initialInputs";
+import { initialInputs } from "@/data/initialInputs";
+import { nanoid } from "nanoid";
 
 function InvoiceForm({ setInvoiceFormIsOpen }) {
   const { isDarkMode } = useTheme();
   const { addInvoice } = useInvoices();
   const theme = isDarkMode ? styles.dark : styles.light;
-  const [inputs, setInputs] = useState(initalInputs);
+  const [inputs, setInputs] = useState(structuredClone(initialInputs));
 
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setInputs((values) => ({ ...values, [name]: value }));
   };
+
+  console.log(inputs);
+  console.log({ ...initialInputs });
 
   const handleAddressChange = (e, person) => {
     const name = e.target.name;
@@ -37,9 +41,9 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
     if (name === "name") {
       data.items[i][name] = value;
     } else {
-      data.items[i][name] = parseInt(value);
+      data.items[i][name] = parseFloat(value);
     }
-    data.items[i].total = parseInt(
+    data.items[i].total = parseFloat(
       (data.items[i].quantity * data.items[i].price).toFixed(2)
     );
     setInputs(data);
@@ -67,6 +71,7 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
 
   const handleDiscard = (e) => {
     e.preventDefault();
+    setInputs(structuredClone(initialInputs));
     setInvoiceFormIsOpen(false);
   };
 
@@ -78,6 +83,7 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
     let dateFormatted = dueDate.toISOString().slice(0, 10);
     addInvoice({
       ...inputs,
+      id: nanoid(6).toUpperCase(),
       total: total,
       status: status,
       paymentDue: dateFormatted,
@@ -309,9 +315,11 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
               <input
                 type="number"
                 id="itemPrice"
+                step={0.01}
+                min={0}
                 name="price"
                 className={`${styles.itemPrice} heading-S`}
-                value={inputs.items[i].price || 0}
+                value={inputs.items[i].price}
                 onChange={(e) => handleItemChange(e, i)}
               />
             </label>
@@ -324,7 +332,7 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
                 name="total"
                 className={`${styles.itemTotal} heading-S`}
                 disabled
-                value={inputs.items[i].total || 0.0}
+                value={inputs.items[i].total}
               />
             </label>
             <button

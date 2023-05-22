@@ -1,7 +1,4 @@
-import { nanoid } from "nanoid";
-
-export const initalInputs = {
-  id: nanoid(6).toUpperCase(),
+export const initialInputs = {
   createdAt: 0,
   paymentDue: 0,
   description: "",
@@ -25,7 +22,7 @@ export const initalInputs = {
     {
       name: "",
       quantity: 0,
-      price: 0,
+      price: 0.0,
       total: 0,
     },
   ],
