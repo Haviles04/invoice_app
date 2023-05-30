@@ -10,26 +10,22 @@ import { nanoid } from "nanoid";
 function InvoiceForm({ setInvoiceFormIsOpen }) {
   const { isDarkMode } = useTheme();
   const { addInvoice } = useInvoices();
-  const theme = isDarkMode ? styles.dark : styles.light;
   const [inputs, setInputs] = useState(structuredClone(initialInputs));
 
+  const theme = isDarkMode ? styles.dark : styles.light;
+
   const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setInputs((values) => ({ ...values, [name]: value }));
+    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   console.log(inputs);
-  console.log({ ...initialInputs });
 
   const handleAddressChange = (e, person) => {
-    const name = e.target.name;
-    const value = e.target.value;
     const data = { ...inputs };
     if (person === "sender") {
-      data.senderAddress[name] = value;
+      data.senderAddress[e.target.name] = e.target.value;
     } else {
-      data.clientAddress[name] = value;
+      data.clientAddress[e.target.name] = e.target.value;
     }
     setInputs(data);
   };
@@ -51,14 +47,15 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
 
   const handleAddItem = (e) => {
     e.preventDefault();
-    const data = { ...inputs };
-    data.items.push({
-      name: "",
-      quantity: 0,
-      price: 0,
-      total: 0,
-    });
-    setInputs(data);
+    setInputs((prev) => ({
+      ...prev,
+      items: prev.items.toSpliced(prev.items.length + 1, 0, {
+        name: "",
+        quantity: 0,
+        price: 0,
+        total: 0,
+      }),
+    }));
   };
 
   const handleDeleteItem = (e, i) => {
@@ -77,10 +74,13 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
 
   const handleSubmit = (e, status) => {
     e.preventDefault();
+    // Get total price of all items
     const total = inputs.items.reduce((prev, { total }) => prev + total, 0);
+    // Calculate the due date
     let dueDate = new Date(inputs.createdAt);
     dueDate.setDate(dueDate.getDate() + parseInt(inputs.paymentTerms));
     let dateFormatted = dueDate.toISOString().slice(0, 10);
+    //Set Final value to invoices
     addInvoice({
       ...inputs,
       id: nanoid(6).toUpperCase(),
