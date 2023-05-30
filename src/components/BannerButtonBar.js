@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "@/styles/BannerButtonBar.module.css";
 import IconPlus from "@/assets/icon-plus.svg";
 import { useTheme } from "@/context/ThemeContextProvider";
+import { useInvoices } from "@/context/InvoiceContextProvider";
 
 function BannerButtonBar({ setInvoiceFormIsOpen }) {
   const { isDarkMode } = useTheme();
