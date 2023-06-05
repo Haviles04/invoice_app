@@ -11,14 +11,11 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
   const { isDarkMode } = useTheme();
   const { addInvoice } = useInvoices();
   const [inputs, setInputs] = useState(structuredClone(initialInputs));
-
   const theme = isDarkMode ? styles.dark : styles.light;
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-
-  console.log(inputs);
 
   const handleAddressChange = (e, person) => {
     const data = { ...inputs };
@@ -31,13 +28,11 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
   };
 
   const handleItemChange = (e, i) => {
-    const name = e.target.name;
-    const value = e.target.value;
     let data = { ...inputs };
-    if (name === "name") {
-      data.items[i][name] = value;
+    if (e.target.name === "name") {
+      data.items[i][e.target.name] = e.target.value;
     } else {
-      data.items[i][name] = parseFloat(value);
+      data.items[i][e.target.name] = parseFloat(e.target.value);
     }
     data.items[i].total = parseFloat(
       (data.items[i].quantity * data.items[i].price).toFixed(2)
@@ -69,7 +64,6 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
   const handleDiscard = (e) => {
     e.preventDefault();
     setInputs(structuredClone(initialInputs));
-    setInvoiceFormIsOpen(false);
   };
 
   const handleSubmit = (e, status) => {
@@ -88,6 +82,7 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
       status: status,
       paymentDue: dateFormatted,
     });
+    setInvoiceFormIsOpen(false);
   };
 
   return (
