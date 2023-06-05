@@ -37,12 +37,10 @@ function BannerButtonBar({ setInvoiceFormIsOpen }) {
       setInvoiceCountMessage(
         `There are ${userSelections} ${invoiceStatusSelection[0]} invoices`
       );
-      console.log("hi");
     } else {
       setInvoiceCountMessage(
         `There are ${userSelections || invoices.length} Total invoices`
       );
-      console.log("wrong");
     }
   };
 
