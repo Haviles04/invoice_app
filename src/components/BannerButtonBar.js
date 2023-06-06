@@ -18,10 +18,11 @@ function BannerButtonBar({ setInvoiceFormIsOpen }) {
   });
 
   const handleChange = (e) => {
+    const { name, checked } = e.target;
     setInvoiceStatusSelection(
-      e.target.checked
-        ? [...invoiceStatusSelection, e.target.name]
-        : [...invoiceStatusSelection.filter((item) => item !== e.target.name)]
+      checked
+        ? [...invoiceStatusSelection, name]
+        : [...invoiceStatusSelection.filter((item) => item !== name)]
     );
     getInvoiceCountMessage();
   };
@@ -62,13 +63,13 @@ function BannerButtonBar({ setInvoiceFormIsOpen }) {
             Filter by status
           </label>
           <div className={styles.options} onChange={handleChange}>
-            <input type="checkbox" name="draft" />
+            <input type="checkbox" id="draft" name="Draft" />
             <label htmlFor="draft">Draft</label>
             <br />
-            <input type="checkbox" name="pending" />
+            <input type="checkbox" id="pending" name="Pending" />
             <label htmlFor="pending">Pending </label>
             <br />
-            <input type="checkbox" name="paid" />
+            <input type="checkbox" id="paid" name="Paid" />
             <label htmlFor="paid">Paid </label>
             <br />
           </div>
