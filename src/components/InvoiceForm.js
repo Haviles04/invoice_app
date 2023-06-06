@@ -355,13 +355,13 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
           </button>
           <div>
             <button
-              onClick={(e) => handleSubmit(e, "draft")}
+              onClick={(e) => handleSubmit(e, "Draft")}
               className={`${styles.draftBtn} heading-S-variant`}
             >
               Save as Draft
             </button>
             <button
-              onClick={(e) => handleSubmit(e, "pending")}
+              onClick={(e) => handleSubmit(e, "Pending")}
               className={`${styles.saveBtn} heading-S-variant`}
             >
               Save & Send
