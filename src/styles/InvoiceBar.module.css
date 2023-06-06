@@ -1,0 +1,13 @@
+.container {
+  width: 100%;
+  max-width: 730px;
+  height: 72px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px;
+  margin-bottom: 16px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px -15px #979797;
+}
