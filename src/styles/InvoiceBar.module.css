@@ -3,11 +3,78 @@
   max-width: 730px;
   height: 72px;
   background-color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 0.1fr;
   margin-bottom: 16px;
   border-radius: 10px;
+  padding: 0px 30px;
+  align-items: center;
   box-shadow: 0px 4px 15px -15px #979797;
+}
+
+.dark {
+  background-color: var(--color3);
+}
+
+.lightText {
+  color: #858bb2;
+}
+
+.total {
+  justify-self: end;
+  padding-right: 20%;
+}
+
+/* Not camelCase because this is dynamiclly inserted */
+.Pending,
+.Paid,
+.Draft {
+  width: 104px;
+  height: 40px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Paid::before,
+.Pending::before,
+.Draft::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.Paid {
+  background-color: #33d6a01e;
+  color: #33d69f;
+}
+
+.Paid::before {
+  background-color: #33d69f;
+}
+
+.Pending {
+  background-color: #ff910025;
+  color: #ff8f00;
+}
+
+.Pending::before {
+  background-color: #ff8f00;
+}
+
+.Draft {
+  background-color: #373b5310;
+  color: #373b53;
+}
+
+.Draft::before {
+  background-color: #373b53;
+}
+
+.arrowBtn {
+  border: none;
+  background-color: transparent;
+  justify-self: end;
 }
