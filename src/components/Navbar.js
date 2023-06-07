@@ -9,7 +9,7 @@ import { useTheme } from "@/context/ThemeContextProvider";
 
 function Navbar() {
   const { isDarkMode, setIsDarkMode } = useTheme();
-  const themeIcon = isDarkMode ? Moon : Sun;
+  const themeIcon = isDarkMode ? Sun : Moon;
 
   return (
     <nav>
@@ -22,7 +22,7 @@ function Navbar() {
           <Image
             className={styles.theme}
             src={themeIcon}
-            alt={isDarkMode ? "Moon" : "Sun"}
+            alt={isDarkMode ? "Sun" : "Moon"}
             onClick={() => setIsDarkMode(!isDarkMode)}
           />
           <span className={styles.break}></span>
