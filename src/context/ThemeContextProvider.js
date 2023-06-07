@@ -8,9 +8,10 @@ export function useTheme() {
 
 export default function ThemeContextProvider({ children }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const theme = isDarkMode ? "dark" : "light";
 
   return (
-    <ThemeContext.Provider value={{ isDarkMode, setIsDarkMode }}>
+    <ThemeContext.Provider value={{ isDarkMode, setIsDarkMode, theme }}>
       {children}
     </ThemeContext.Provider>
   );

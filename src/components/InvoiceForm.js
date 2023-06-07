@@ -8,10 +8,9 @@ import { initialInputs } from "@/data/initialInputs";
 import { nanoid } from "nanoid";
 
 function InvoiceForm({ setInvoiceFormIsOpen }) {
-  const { isDarkMode } = useTheme();
+  const { theme } = useTheme();
   const { addInvoice } = useInvoices();
   const [inputs, setInputs] = useState(structuredClone(initialInputs));
-  const theme = isDarkMode ? styles.dark : styles.light;
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -64,6 +63,7 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
   const handleDiscard = (e) => {
     e.preventDefault();
     setInputs(structuredClone(initialInputs));
+    setInvoiceFormIsOpen(false);
   };
 
   const handleSubmit = (e, status) => {
@@ -86,7 +86,7 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
   };
 
   return (
-    <div className={`${styles.container} ${theme} `}>
+    <div className={`${styles.container} ${styles[theme]} `}>
       <h2 className="heading-M">New Invoice</h2>
       <form id="invoice" className={styles.invoiceForm}>
         {

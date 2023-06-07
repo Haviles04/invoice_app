@@ -9,9 +9,8 @@ import { useInvoices } from "@/context/InvoiceContextProvider";
 function BannerButtonBar({ setInvoiceFormIsOpen }) {
   const [invoiceStatusSelection, setInvoiceStatusSelection] = useState([]);
   const [invoiceCountMessage, setInvoiceCountMessage] = useState("");
-  const { isDarkMode } = useTheme();
+  const { theme } = useTheme();
   const { invoices } = useInvoices();
-  const theme = isDarkMode ? styles.dark : styles.light;
 
   useEffect(() => {
     getInvoiceCountMessage();
@@ -46,7 +45,7 @@ function BannerButtonBar({ setInvoiceFormIsOpen }) {
   };
 
   return (
-    <div className={`${styles.container} ${theme}`}>
+    <div className={`${styles.container} ${styles[theme]}`}>
       <div className={styles.header}>
         <h1 className="heading-L">Invoices</h1>
         <p>{invoiceCountMessage}</p>
