@@ -7,10 +7,14 @@ import { useTheme } from "@/context/ThemeContextProvider";
 import { useInvoices } from "@/context/InvoiceContextProvider";
 
 function BannerButtonBar({ setInvoiceFormIsOpen }) {
-  const [invoiceStatusSelection, setInvoiceStatusSelection] = useState([]);
   const [invoiceCountMessage, setInvoiceCountMessage] = useState("");
   const { theme } = useTheme();
-  const { invoices } = useInvoices();
+  const {
+    invoices,
+    setInvoiceStatusSelection,
+    invoiceStatusSelection,
+    userSelections,
+  } = useInvoices();
 
   useEffect(() => {
     getInvoiceCountMessage();
@@ -27,19 +31,15 @@ function BannerButtonBar({ setInvoiceFormIsOpen }) {
   };
 
   const getInvoiceCountMessage = () => {
-    const userSelections = invoices.filter(({ status }) =>
-      invoiceStatusSelection.includes(status)
-    ).length;
-
     if (invoices.length === 0) {
       setInvoiceCountMessage("No Invoices");
     } else if (invoiceStatusSelection.length === 1) {
       setInvoiceCountMessage(
-        `There are ${userSelections} ${invoiceStatusSelection[0]} invoices`
+        `There are ${userSelections.length} ${invoiceStatusSelection[0]} invoices`
       );
     } else {
       setInvoiceCountMessage(
-        `There are ${userSelections || invoices.length} Total invoices`
+        `There are ${userSelections?.length || invoices.length} Total invoices`
       );
     }
   };

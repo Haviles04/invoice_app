@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect, useRef } from "react";
 import { initalInvoices } from "@/data/data";
 
 const InvoiceContext = createContext();
@@ -9,6 +9,14 @@ export function useInvoices() {
 
 export default function InvoiceContextProvider({ children }) {
   const [invoices, setInvoices] = useState(initalInvoices);
+  const [invoiceStatusSelection, setInvoiceStatusSelection] = useState([]);
+  const [userSelections, setUserSelections] = useState([]);
+
+  useEffect(() => {
+    setUserSelections(
+      invoices.filter(({ status }) => invoiceStatusSelection.includes(status))
+    );
+  }, [invoices, invoiceStatusSelection]);
 
   const addInvoice = (invoice) => {
     setInvoices([...invoices, invoice]);
@@ -24,6 +32,9 @@ export default function InvoiceContextProvider({ children }) {
         invoices,
         addInvoice,
         deleteInvoice,
+        invoiceStatusSelection,
+        setInvoiceStatusSelection,
+        userSelections,
       }}
     >
       {children}

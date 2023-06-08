@@ -4,10 +4,13 @@ import InvoiceBar from "./InvoiceBar";
 import styles from "@/styles/InvoiceListDisplay.module.css";
 
 function InvoiceListDisplay() {
-  const { invoices } = useInvoices();
+  const { invoices, userSelections } = useInvoices();
+
+  const invoicesToDisplay = userSelections.length ? userSelections : invoices;
+
   return (
     <div className={styles.container}>
-      {invoices.map((invoice) => (
+      {invoicesToDisplay.map((invoice) => (
         <InvoiceBar key={invoice.id} invoice={invoice} />
       ))}
     </div>
