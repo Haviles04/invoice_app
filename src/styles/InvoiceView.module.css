@@ -1,0 +1,171 @@
+.container{
+    width: 100%;
+    max-width: 730px;
+    margin-top: 65px;
+}
+
+.backButton{
+    border: none;
+    background-color: transparent;
+    margin-bottom: 31px;
+}
+
+.backButton img{
+    margin-right: 30px;
+}
+
+.invoiceDisplay{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top:24px;
+  border-radius: 10px;
+  background-color: white;
+  padding: 32px;
+}
+
+.id{
+  margin-bottom: 7px;
+}
+
+.id::before{
+  content:"#";
+  color: var(--color6)
+}
+
+.idAndSender{
+  width: 100%;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+}
+
+.datesAndClient{
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-top:21px;
+}
+
+.datesAndClient p:nth-child(even){
+  margin-top:13px;
+  margin-bottom:13px;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: -0.25px;
+}
+
+.datesAndClient p:nth-child(odd){
+  font-weight: medium;
+  font-size: 15px;
+  line-height: 18px;
+  letter-spacing: -0.25px;
+  color: var(--color7);
+}
+
+.address{
+  font-weight: medium;
+  font-size: 15px;
+  line-height: 18px;
+  letter-spacing: -0.25px;
+  color: var(--color7);
+}
+
+
+
+
+/* ////////////////
+  ////Edit Bar//// 
+ //////////////// */
+
+.editBar{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    max-height: 88px;
+    padding: 32px 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px -15px #979797;
+}
+
+.status{
+    display: flex;
+    align-items: center;
+}
+
+.status:nth-child(1){
+    color:#979797;
+}
+
+/* Not camelCase because this is dynamiclly inserted */
+.Pending,
+.Paid,
+.Draft {
+  width: 104px;
+  height: 40px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 20px;
+}
+.Paid::before,
+.Pending::before,
+.Draft::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.Paid {
+  background-color: #33d6a01e;
+  color: #33d69f;
+}
+
+.Paid::before {
+  background-color: #33d69f;
+}
+
+.Pending {
+  background-color: #ff910025;
+  color: #ff8f00;
+}
+
+.Pending::before {
+  background-color: #ff8f00;
+}
+
+.Draft {
+  background-color: #373b5310;
+  color: #373b53;
+}
+
+.Draft::before {
+  background-color: #373b53;
+}
+
+.editBtns button{
+    padding: 18px;
+    margin-left: 8px;
+    border-radius: 25px;
+    border: none;
+}
+
+.editBtns :nth-child(1){
+    background-color: #F9FAFE;
+    color: #979797;
+}
+.editBtns :nth-child(2){
+    background-color: var(--color9);
+    color: #FFFFFF;
+}
+.editBtns :nth-child(3){
+    background-color: var(--color1);
+    color: #FFFFFF;
+}

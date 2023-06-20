@@ -4,14 +4,17 @@ import styles from "@/styles/InvoiceBar.module.css";
 import ArrowRight from "@/assets/icon-arrow-right.svg";
 import { useTheme } from "@/context/ThemeContextProvider";
 
-function InvoiceBar({ invoice }) {
+function InvoiceBar({ invoice, setSingleInvoice }) {
   const { theme } = useTheme();
   const { id, paymentDue, clientName, total, status } = invoice;
 
   const dueDate = new Date(paymentDue).toDateString().slice(3);
 
   return (
-    <div className={`${styles.container} ${styles[theme]}`}>
+    <div
+      className={`${styles.container} ${styles[theme]}`}
+      onClick={() => setSingleInvoice(invoice)}
+    >
       <p className="heading-S-variant">#{id}</p>
       <p className={`body-font ${styles.lightText}`}>Due {dueDate}</p>
       <p className={`body-font ${styles.lightText}`}>{clientName}</p>
