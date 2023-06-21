@@ -14,6 +14,10 @@
     margin-right: 30px;
 }
 
+/* ////////////////////
+  ////Invoice Info//// 
+ //////////////////// */
+
 .invoiceDisplay{
   display: flex;
   flex-direction: column;
@@ -48,16 +52,18 @@
   margin-top:21px;
 }
 
-.datesAndClient p:nth-child(even){
+.datesAndClient p:nth-child(even),
+.clientEmail p:nth-child(even){
   margin-top:13px;
   margin-bottom:13px;
-  font-weight: bold;
   font-size: 15px;
+  font-weight: bold;
   line-height: 20px;
   letter-spacing: -0.25px;
 }
 
-.datesAndClient p:nth-child(odd){
+.datesAndClient p:nth-child(odd),
+.clientEmail p:nth-child(odd){
   font-weight: medium;
   font-size: 15px;
   line-height: 18px;
@@ -73,8 +79,14 @@
   color: var(--color7);
 }
 
+.bottomSection{
+  display: flex;
+}
 
-
+.clientEmail{
+  margin-top: 21px;
+  margin-left: 10%;
+}
 
 /* ////////////////
   ////Edit Bar//// 
