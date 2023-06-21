@@ -181,3 +181,74 @@
     background-color: var(--color1);
     color: #FFFFFF;
 }
+
+
+/* /////////////////
+  ////Item Info//// 
+ /////////////////*/
+
+ .itemContainer{
+  width: 100%;
+  margin-top: 50px;
+ }
+
+ .itemContainer table{
+  border-radius: 8px 8px 0px 0px;
+  padding: 32px;
+  width: 100%;
+  background-color:#F9FAFE ;
+ }
+
+ .itemContainer table th{
+  text-align: left;
+  color: var(--07, #7E88C3);
+  font-size: 13px;
+  font-family: League Spartan;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: -0.1px;
+ }
+
+ .itemContainer table td:nth-child(1),
+ .itemContainer table td:nth-child(4){
+  color: var(--08, #0C0E16);
+  font-size: 15px;
+  font-family: League Spartan;
+  font-weight: 700;
+  line-height: 15px;
+  letter-spacing: -0.25px;
+ }
+
+ .itemContainer table td:nth-child(2),
+ .itemContainer table td:nth-child(3){
+  color: var(--07, #7E88C3);
+  font-size: 15px;
+  font-family: League Spartan;
+  font-weight: 700;
+  line-height: 15px;
+  letter-spacing: -0.25px;
+ }
+
+ .itemContainer table td{
+ padding-top: 32px;
+ }
+
+ .itemTotal{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px;
+  background-color: #373B53;
+  color: #FFFFFF;
+  border-radius: 0px 0px 8px 8px
+ }
+
+ .itemTotal p:nth-child(2){
+  color: #FFF;
+  text-align: right;
+  font-size: 24px;
+  font-family: League Spartan;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: -0.5px;
+ }

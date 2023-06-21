@@ -2,17 +2,17 @@ import React from "react";
 import styles from "@/styles/InvoiceView.module.css";
 
 function InvoiceInfo({ invoice }) {
-  const {
-    id,
-    description,
-    senderAddress,
-    clientAddress,
-    createdAt,
-    paymentDue,
-    clientEmail,
-  } = invoice;
+    const {
+      id,
+      description,
+      senderAddress,
+      clientAddress,
+      createdAt,
+      paymentDue,
+      clientEmail,
+    } = invoice;
   return (
-    <div className={styles.invoiceDisplay}>
+    <>
       <div className={styles.idAndSender}>
         <span>
           <p className={`heading-S ${styles.id}`}>{id}</p>
@@ -49,7 +49,7 @@ function InvoiceInfo({ invoice }) {
           <p>{clientEmail}</p>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -22,8 +22,8 @@ export default function InvoiceContextProvider({ children }) {
     setInvoices([...invoices, invoice]);
   };
 
-  const deleteInvoice = (invoice) => {
-    setInvoices(...invoices.filter(({ id }) => id !== invoice.id));
+  const deleteInvoice = (id) => {
+    setInvoices([...invoices.filter((invoice) => invoice.id !== id)]);
   };
 
   return (

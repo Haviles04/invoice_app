@@ -5,7 +5,7 @@ import BannerButtonBar from "@/components/BannerButtonBar";
 import InvoiceForm from "@/components/InvoiceForm";
 import { useInvoices } from "@/context/InvoiceContextProvider";
 import InvoiceListDisplay from "@/components/InvoiceListDisplay";
-import InvoiceView from "@/components/InvoiceView";
+import InvoiceView from "@/components/InvoiceView/InvoiceView";
 
 export default function Home() {
   const [invoiceFormIsOpen, setInvoiceFormIsOpen] = useState(false);
