@@ -3,7 +3,7 @@ import styles from "@/styles/InvoiceView.module.css";
 import { useInvoices } from "@/context/InvoiceContextProvider";
 
 function InvoiceEditBar({ status, id, setSingleInvoice }) {
-  const { deleteInvoice } = useInvoices();
+  const { deleteInvoice, markAsPaid } = useInvoices();
 
   const handleDelete = () => {
     try {
@@ -12,6 +12,10 @@ function InvoiceEditBar({ status, id, setSingleInvoice }) {
     } catch {
       alert("Oops! something went wrong!");
     }
+  };
+
+  const handleMarkAsPaid = () => {
+    markAsPaid(id);
   };
 
   return (
@@ -25,7 +29,11 @@ function InvoiceEditBar({ status, id, setSingleInvoice }) {
         <button onClick={handleDelete} className="heading-S-variant">
           Delete
         </button>
-        <button className="heading-S-variant">Mark as Paid</button>
+        {status !== "Paid" && (
+          <button className="heading-S-variant" onClick={handleMarkAsPaid}>
+            Mark as Paid
+          </button>
+        )}
       </div>
     </div>
   );

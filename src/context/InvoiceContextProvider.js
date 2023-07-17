@@ -26,6 +26,14 @@ export default function InvoiceContextProvider({ children }) {
     setInvoices([...invoices.filter((invoice) => invoice.id !== id)]);
   };
 
+  const markAsPaid = (id) => {
+    setInvoices([
+      ...invoices.map((invoice) =>
+        invoice.id === id ? { ...invoice, status: "Paid" } : invoice
+      ),
+    ]);
+  };
+
   return (
     <InvoiceContext.Provider
       value={{
@@ -35,6 +43,7 @@ export default function InvoiceContextProvider({ children }) {
         invoiceStatusSelection,
         setInvoiceStatusSelection,
         userSelections,
+        markAsPaid,
       }}
     >
       {children}
