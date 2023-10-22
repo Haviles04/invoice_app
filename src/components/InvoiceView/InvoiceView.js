@@ -5,19 +5,18 @@ import arrowLeft from "@/assets/icon-arrow-left.svg";
 import InvoiceEditBar from "@/components/InvoiceView/InvoiceEditBar";
 import InvoiceInfo from "@/components/InvoiceView/InvoiceInfo";
 import ItemInfo from "@/components/InvoiceView/ItemInfo";
+import Link from "next/link";
 
 function InvoiceView({ invoice, setSingleInvoice }) {
   return (
     <section className={styles.container}>
-      <button
-        className={`${styles.backButton} heading-S-variant`}
-        onClick={() => setSingleInvoice(null)}
-      >
-        <Image src={arrowLeft} alt="back arrow" /> Go Back
-      </button>
+      <Link href="/">
+        <button className={`${styles.backButton} heading-S-variant`}>
+          <Image src={arrowLeft} alt="back arrow" /> Go Back
+        </button>
+      </Link>
       <InvoiceEditBar
         status={invoice.status}
-        id={invoice.id}
         setSingleInvoice={setSingleInvoice}
       />
       <div className={styles.invoiceDisplay}>

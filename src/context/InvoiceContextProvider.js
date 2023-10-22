@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, useRef } from "react";
 import { initalInvoices } from "@/data/data";
+import { useRouter } from "next/router";
 
 const InvoiceContext = createContext();
 
@@ -8,6 +9,7 @@ export function useInvoices() {
 }
 
 export default function InvoiceContextProvider({ children }) {
+  const router = useRouter();
   const [invoices, setInvoices] = useState(initalInvoices);
   const [invoiceStatusSelection, setInvoiceStatusSelection] = useState([]);
   const [userSelections, setUserSelections] = useState([]);
@@ -24,6 +26,7 @@ export default function InvoiceContextProvider({ children }) {
 
   const deleteInvoice = (id) => {
     setInvoices([...invoices.filter((invoice) => invoice.id !== id)]);
+    router.push("/");
   };
 
   const markAsPaid = (id) => {

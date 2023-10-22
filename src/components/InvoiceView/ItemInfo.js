@@ -13,14 +13,16 @@ function ItemInfo({ items, total }) {
             <th>Total</th>
           </tr>
         </thead>
-        {items.map((item, i) => (
-          <tr key={`item#${i}`}>
-            <td>{item.name}</td>
-            <td>{item.quantity}</td>
-            <td>${item.price}</td>
-            <td>${item.total}</td>
-          </tr>
-        ))}
+        <tbody>
+          {items.map((item, i) => (
+            <tr key={`item#${i}`}>
+              <td>{item.name}</td>
+              <td>{item.quantity}</td>
+              <td>${item.price}</td>
+              <td>${item.total}</td>
+            </tr>
+          ))}
+        </tbody>
       </table>
       <div className={styles.itemTotal}>
         <p>Amount Due</p>

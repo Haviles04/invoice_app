@@ -10,11 +10,7 @@ function InvoiceListDisplay({ setSingleInvoice }) {
   return (
     <div className={styles.container}>
       {invoicesToDisplay.map((invoice) => (
-        <InvoiceBar
-          setSingleInvoice={setSingleInvoice}
-          key={invoice.id}
-          invoice={invoice}
-        />
+        <InvoiceBar key={invoice.id} invoice={invoice} />
       ))}
     </div>
   );

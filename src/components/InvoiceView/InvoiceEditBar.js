@@ -1,14 +1,15 @@
 import React from "react";
 import styles from "@/styles/InvoiceView.module.css";
 import { useInvoices } from "@/context/InvoiceContextProvider";
-
-function InvoiceEditBar({ status, id, setSingleInvoice }) {
+import { useRouter } from "next/router";
+function InvoiceEditBar({ status, id }) {
   const { deleteInvoice, markAsPaid } = useInvoices();
+  const router = useRouter();
 
-  const handleDelete = () => {
+  const handleDelete = (e) => {
     try {
+      e.preventDefault();
       deleteInvoice(id);
-      setSingleInvoice(null);
     } catch {
       alert("Oops! something went wrong!");
     }

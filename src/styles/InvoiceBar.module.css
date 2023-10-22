@@ -17,6 +17,15 @@
   background-color: var(--color3);
 }
 
+.link {
+  margin: 0 auto;
+  text-decoration: none;
+}
+
+.link:visited {
+  color: black;
+}
+
 .lightText {
   color: #858bb2;
 }
