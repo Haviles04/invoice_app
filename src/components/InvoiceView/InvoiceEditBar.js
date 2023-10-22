@@ -1,8 +1,9 @@
 import React from "react";
 import styles from "@/styles/InvoiceView.module.css";
+
 import { useInvoices } from "@/context/InvoiceContextProvider";
 import { useRouter } from "next/router";
-function InvoiceEditBar({ status, id }) {
+function InvoiceEditBar({ status, id, setInvoiceFormIsOpen }) {
   const { deleteInvoice, markAsPaid } = useInvoices();
   const router = useRouter();
 
@@ -22,7 +23,12 @@ function InvoiceEditBar({ status, id }) {
         <p className={`${styles[status]} heading-S-variant `}>{status}</p>
       </div>
       <div className={styles.editBtns}>
-        <button className="heading-S-variant">Edit</button>
+        <button
+          className="heading-S-variant"
+          onClick={() => setInvoiceFormIsOpen(true)}
+        >
+          Edit
+        </button>
         <button onClick={handleDelete} className="heading-S-variant">
           Delete
         </button>

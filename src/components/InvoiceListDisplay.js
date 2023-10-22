@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { useInvoices } from "@/context/InvoiceContextProvider";
 import InvoiceBar from "./InvoiceBar";
 import styles from "@/styles/InvoiceListDisplay.module.css";

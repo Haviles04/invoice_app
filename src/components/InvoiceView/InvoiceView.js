@@ -7,9 +7,12 @@ import InvoiceInfo from "@/components/InvoiceView/InvoiceInfo";
 import ItemInfo from "@/components/InvoiceView/ItemInfo";
 import Link from "next/link";
 import { useTheme } from "@/context/ThemeContextProvider";
+import { useInvoices } from "@/context/InvoiceContextProvider";
 
-function InvoiceView({ invoice, setSingleInvoice }) {
+function InvoiceView({ invoice }) {
+  const { setInvoiceFormIsOpen } = useInvoices();
   const theme = useTheme();
+
   return (
     <section className={`${styles.container} ${styles[theme]}`}>
       <Link href="/">
@@ -20,7 +23,7 @@ function InvoiceView({ invoice, setSingleInvoice }) {
       <InvoiceEditBar
         id={invoice.id}
         status={invoice.status}
-        setSingleInvoice={setSingleInvoice}
+        setInvoiceFormIsOpen={setInvoiceFormIsOpen}
       />
       <div className={styles.invoiceDisplay}>
         <InvoiceInfo invoice={invoice} />

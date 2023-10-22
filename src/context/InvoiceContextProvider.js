@@ -13,6 +13,7 @@ export default function InvoiceContextProvider({ children }) {
   const [invoices, setInvoices] = useState(initalInvoices);
   const [invoiceStatusSelection, setInvoiceStatusSelection] = useState([]);
   const [userSelections, setUserSelections] = useState([]);
+  const [invoiceFormIsOpen, setInvoiceFormIsOpen] = useState(false);
 
   useEffect(() => {
     setUserSelections(
@@ -36,6 +37,10 @@ export default function InvoiceContextProvider({ children }) {
     ]);
   };
 
+  const saveInvoiceChanges = (invoice) => {
+    setInvoices([...invoices.filter(({ id }) => id !== invoice.id), invoice]);
+  };
+
   return (
     <InvoiceContext.Provider
       value={{
@@ -46,6 +51,9 @@ export default function InvoiceContextProvider({ children }) {
         setInvoiceStatusSelection,
         userSelections,
         markAsPaid,
+        invoiceFormIsOpen,
+        setInvoiceFormIsOpen,
+        saveInvoiceChanges,
       }}
     >
       {children}

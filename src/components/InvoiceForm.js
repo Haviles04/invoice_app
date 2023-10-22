@@ -6,11 +6,19 @@ import { useTheme } from "@/context/ThemeContextProvider";
 import { useInvoices } from "@/context/InvoiceContextProvider";
 import { initialInputs } from "@/data/initialInputs";
 import { nanoid } from "nanoid";
+import { useRouter } from "next/router";
 
 function InvoiceForm({ setInvoiceFormIsOpen }) {
   const { theme } = useTheme();
-  const { addInvoice } = useInvoices();
-  const [inputs, setInputs] = useState(structuredClone(initialInputs));
+  const { invoices, saveInvoiceChanges, addInvoice } = useInvoices();
+  const {
+    query: { invoiceId },
+  } = useRouter();
+
+  const invoice = invoices.find(({ id }) => id === invoiceId);
+  const [inputs, setInputs] = useState(
+    invoice || structuredClone(initialInputs)
+  );
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -62,7 +70,7 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
 
   const handleDiscard = (e) => {
     e.preventDefault();
-    setInputs(structuredClone(initialInputs));
+    setInputs(invoice || structuredClone(initialInputs));
     setInvoiceFormIsOpen(false);
   };
 
@@ -75,13 +83,17 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
     dueDate.setDate(dueDate.getDate() + parseInt(inputs.paymentTerms));
     let dateFormatted = dueDate.toISOString().slice(0, 10);
     //Set Final value to invoices
-    addInvoice({
-      ...inputs,
-      id: nanoid(6).toUpperCase(),
-      total: total,
-      status: status,
-      paymentDue: dateFormatted,
-    });
+    if (status) {
+      addInvoice({
+        ...inputs,
+        id: nanoid(6).toUpperCase(),
+        total: total,
+        status: status,
+        paymentDue: dateFormatted,
+      });
+    } else {
+      saveInvoiceChanges({ ...inputs, total, paymentDue: dateFormatted });
+    }
     setInvoiceFormIsOpen(false);
   };
 
@@ -103,7 +115,7 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
             id="fromAddress"
             name="street"
             className={`${styles.largeInput} heading-S`}
-            value={inputs.senderAddress.street}
+            value={inputs.senderAddress?.street}
             onChange={(e) => handleAddressChange(e, "sender")}
           />
         </label>
@@ -116,7 +128,7 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
               id="fromCity"
               name="city"
               className={`${styles.mediumInput} heading-S`}
-              value={inputs.senderAddress.city}
+              value={inputs.senderAddress?.city}
               onChange={(e) => handleAddressChange(e, "sender")}
             />
           </label>
@@ -128,7 +140,7 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
               id="fromPostcode"
               name="postCode"
               className={`${styles.mediumInput} heading-S`}
-              value={inputs.senderAddress.postCode}
+              value={inputs.senderAddress?.postCode}
               onChange={(e) => handleAddressChange(e, "sender")}
             />
           </label>
@@ -140,7 +152,7 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
               id="fromCountry"
               name="country"
               className={`${styles.mediumInput} heading-S`}
-              value={inputs.senderAddress.country}
+              value={inputs.senderAddress?.country}
               onChange={(e) => handleAddressChange(e, "sender")}
             />
           </label>
@@ -273,7 +285,7 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
             id="projectDescription"
             name="description"
             className={`${styles.largeInput} heading-S`}
-            value={inputs.projectDescription}
+            value={inputs.description}
             onChange={handleChange}
           />
         </label>
@@ -344,30 +356,49 @@ function InvoiceForm({ setInvoiceFormIsOpen }) {
         >
           + Add New Item
         </button>
-        <div className={styles.buttonContainer}>
-          <button
-            onClick={(e) => {
-              handleDiscard(e);
-            }}
-            className={`${styles.discardBtn} heading-S-variant`}
-          >
-            Discard
-          </button>
-          <div>
+        {!invoice ? (
+          <div className={styles.buttonContainer}>
             <button
-              onClick={(e) => handleSubmit(e, "Draft")}
-              className={`${styles.draftBtn} heading-S-variant`}
+              onClick={(e) => {
+                handleDiscard(e);
+              }}
+              className={`${styles.discardBtn} heading-S-variant`}
             >
-              Save as Draft
+              Discard
+            </button>
+            <div>
+              <button
+                onClick={(e) => handleSubmit(e, "Draft")}
+                className={`${styles.draftBtn} heading-S-variant`}
+              >
+                Save as Draft
+              </button>
+              <button
+                onClick={(e) => handleSubmit(e, "Pending")}
+                className={`${styles.saveBtn} heading-S-variant`}
+              >
+                Save & Send
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className={styles.buttonContainer}>
+            <button
+              onClick={(e) => {
+                handleDiscard(e);
+              }}
+              className={`${styles.discardBtn} heading-S-variant`}
+            >
+              Discard
             </button>
             <button
-              onClick={(e) => handleSubmit(e, "Pending")}
+              onClick={(e) => handleSubmit(e)}
               className={`${styles.saveBtn} heading-S-variant`}
             >
-              Save & Send
+              Save Changes
             </button>
           </div>
-        </div>
+        )}
       </form>
     </div>
   );
