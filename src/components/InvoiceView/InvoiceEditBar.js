@@ -1,11 +1,12 @@
 import React from "react";
 import styles from "@/styles/InvoiceView.module.css";
-
+import { useTheme } from "@/context/ThemeContextProvider";
 import { useInvoices } from "@/context/InvoiceContextProvider";
 import { useRouter } from "next/router";
 function InvoiceEditBar({ status, id, setInvoiceFormIsOpen }) {
   const { deleteInvoice, markAsPaid } = useInvoices();
   const router = useRouter();
+  const { theme } = useTheme();
 
   const handleDelete = (e) => {
     deleteInvoice(id);
@@ -17,7 +18,7 @@ function InvoiceEditBar({ status, id, setInvoiceFormIsOpen }) {
   };
 
   return (
-    <div className={styles.editBar}>
+    <div className={`${styles.editBar} ${styles[theme]} `}>
       <div className={styles.status}>
         <p className="body-font">Status</p>
         <p className={`${styles[status]} heading-S-variant `}>{status}</p>

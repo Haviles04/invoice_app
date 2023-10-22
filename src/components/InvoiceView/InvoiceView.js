@@ -11,10 +11,10 @@ import { useInvoices } from "@/context/InvoiceContextProvider";
 
 function InvoiceView({ invoice }) {
   const { setInvoiceFormIsOpen } = useInvoices();
-  const theme = useTheme();
+  const { theme } = useTheme();
 
   return (
-    <section className={`${styles.container} ${styles[theme]}`}>
+    <section className={`${styles.container}`}>
       <Link href="/">
         <button className={`${styles.backButton} heading-S-variant`}>
           <Image src={arrowLeft} alt="back arrow" /> Go Back
@@ -25,7 +25,7 @@ function InvoiceView({ invoice }) {
         status={invoice.status}
         setInvoiceFormIsOpen={setInvoiceFormIsOpen}
       />
-      <div className={styles.invoiceDisplay}>
+      <div className={`${styles.invoiceDisplay} ${styles[theme]}`}>
         <InvoiceInfo invoice={invoice} />
         <ItemInfo items={invoice.items} total={invoice.total} />
       </div>
