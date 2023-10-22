@@ -10,9 +10,11 @@ export default function Invoice() {
   const { invoiceId } = query;
 
   const invoice = invoices.find(({ id }) => invoiceId === id);
-  return (
+  return invoice ? (
     <div className={styles.mainContainer}>
       <InvoiceView key={invoice.id} invoice={invoice} />
     </div>
+  ) : (
+    <div>Oops! Invoice not found!</div>
   );
 }

@@ -4,6 +4,10 @@
   margin-top: 65px;
 }
 
+.dark .container {
+  background-color: black;
+}
+
 .backButton {
   border: none;
   background-color: transparent;

@@ -6,7 +6,6 @@ import styles from "@/styles/InvoiceListDisplay.module.css";
 function InvoiceListDisplay({ setSingleInvoice }) {
   const { invoices, userSelections } = useInvoices();
   const invoicesToDisplay = userSelections.length ? userSelections : invoices;
-
   return (
     <div className={styles.container}>
       {invoicesToDisplay.map((invoice) => (

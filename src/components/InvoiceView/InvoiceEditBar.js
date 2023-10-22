@@ -7,12 +7,8 @@ function InvoiceEditBar({ status, id }) {
   const router = useRouter();
 
   const handleDelete = (e) => {
-    try {
-      e.preventDefault();
-      deleteInvoice(id);
-    } catch {
-      alert("Oops! something went wrong!");
-    }
+    deleteInvoice(id);
+    router.push("/");
   };
 
   const handleMarkAsPaid = () => {

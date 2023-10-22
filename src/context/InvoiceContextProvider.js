@@ -26,7 +26,6 @@ export default function InvoiceContextProvider({ children }) {
 
   const deleteInvoice = (id) => {
     setInvoices([...invoices.filter((invoice) => invoice.id !== id)]);
-    router.push("/");
   };
 
   const markAsPaid = (id) => {
