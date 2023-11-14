@@ -38,7 +38,11 @@ export default function InvoiceContextProvider({ children }) {
   };
 
   const saveInvoiceChanges = (invoice) => {
-    setInvoices([...invoices.filter(({ id }) => id !== invoice.id), invoice]);
+    setInvoices([
+      ...invoices.map((currInvoice) =>
+        currInvoice.id === invoice.id ? invoice : currInvoice
+      ),
+    ]);
   };
 
   return (
